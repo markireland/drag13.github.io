@@ -9,9 +9,9 @@ html(lang='en')
   block title
   link(rel='stylesheet', href='~/styles/markdown.css')
   link(rel='stylesheet', href='~/styles/site.css')
-body
-  include ./_nav.pug
-  main.markdown-body.main
-    block content
-  block foot
-  include ./_footer.pug
+  body
+    include ./_nav.pug
+    main.main
+      div.content.markdown-body
+        block content
+    include ./_footer.pug
