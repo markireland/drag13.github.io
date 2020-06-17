@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How to start new JS project from scratch with automated formatting, linting, testing and documentation</title><meta name="application-name" content="Drag13 programmer's blog"><meta name="description" content="Blog about web-programming, cloud computing, web-site performance and profiling"><meta name="keywords" content="programming, web-programming, javascript, performance, web-performance, performance-tuning, .net, c#, f#, html, css, drag13"><meta name="author" content="Drag13"><meta name="robots" content="index follow"><meta name="application-name" content="Drag13 Dev Blog"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144.183f717d.png"><link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.950bb193.png"><link rel="icon" type="image/png" href="/favicon-32x32.cf64321e.png" sizes="32x32"><link rel="icon" type="image/png" href="/favicon-16x16.65ddeb5a.png" sizes="16x16"><link rel="manifest" href="/manifest.js"><link rel="stylesheet" href="/markdown.6d9eff44.css"><link rel="stylesheet" href="/site.21abf370.css"><body><nav class="nav"><a href="/">Home</a><a href="https://github.com/Drag13">GitHub</a></nav><main class="main"><div class="content markdown-body"><article><h1>How to start new JS project from scratch with automated formatting, linting, testing and documentation</h1>
+<p>Keeping your code consistent and well formatted not an easy task even when you work alone. But when you work with a team or with open source project all start getting even harder. Everyone has own code style, someone doesn't run tests, and no one writes documentation. This article will help you to set up all these things and even more - automate this routine to never do it manually.</p>
+<p>After reading you will get your own npm-ready project with next features:</p>
+<ul>
+<li>Text formatting and code style</li>
+<li>Automated tests with code coverage and threshold</li>
+<li>Unified commit style</li>
+<li>Documentation generated from the code and commits</li>
+<li>Automated publish process</li>
+</ul>
+<p>Let's go!</p>
+<h2>Prerequisites</h2>
+<p>Create a new folder, initialize new repository and project and go to the next step.</p>
+<pre><code class="language-cmd">git init
+npm init
+npm i -D typescript
+./node_modules/.bin/tsc --init
+</code></pre>
+<h2>Code Formatting</h2>
+<p>Let's start with code formatting - indention types, size and so on. First tool is <a href="https://editorconfig.org/">.editorconfig</a> file. It is recognized with most of IDE and helps to keep your autoformatting consistent across different IDEs and users.</p>
+<p>Create .editorconfig in the root of the project with next content (feel free to change it for your desired style)</p>
+<pre><code class="language-yml">#root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 100
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+</code></pre>
+<p>But sometimes autoformatting can be not used. To ensure that all is well formatted <a href="https://github.com/prettier/prettier">prettier</a> appears. If you forget to format the code, prettier will do it for you.</p>
+<pre><code class="language-cmd">npm i -D prettier
+</code></pre>
+<p>Add this command to the scripts section your package.json file</p>
+<pre><code class="language-json">&quot;prettier&quot;: &quot;prettier --config .prettierrc.json --write src/**/*.ts&quot;
+</code></pre>
+<p>And add .prettierrc.json file with your settings to the root of the project</p>
+<pre><code class="language-json">{
+    &quot;tabWidth&quot;: 4,
+    &quot;useTabs&quot;: false,
+    &quot;semi&quot;: true,
+    &quot;singleQuote&quot;: true,
+    &quot;trailingComma&quot;: &quot;es5&quot;,
+    &quot;arrowParens&quot;: &quot;always&quot;
+}
+</code></pre>
+<p>Now you can write some code and try run &quot;npm run prettier&quot;. Prettier will check src folder and autoformat your code without any help!</p>
+<h2>Code Style</h2>
+<p>Code style - like avoiding using == instead of === or shadowing variables also needs to be check. For this purpose, we will take <a href="https://palantir.github.io/tslint/">tslint</a>. If you prefer javascript - take <a href="https://eslint.org/">eslint</a> instead.</p>
+<pre><code class="language-cmd">npm i -D tslint
+./node_modules/.bin/tslint --init
+</code></pre>
+<p>The last command will create tslint.json for you. It already extends tslint:recommended set of rules, but you can extend or override them whatever you want. Don't forget to add lint command to your package.json.</p>
+<p>package.json</p>
+<pre><code class="language-json">&quot;lint&quot;: &quot;tslint -c tslint.json 'src/**/*.ts' 'tests/**/*.spec.ts'&quot;
+</code></pre>
+<p>As you see it setup to work with src and tests folder, so all your code should be placed there.</p>
+<h2>Testing</h2>
+<p>Now it is time to set up our tests. Install karma and other related dependencies</p>
+<pre><code class="language-cmd">npm i -D karma karma-jasmine jasmine karma-typescript karma-chrome-launcher @types/jasmine
+./node_modules/.bin/karma init
+</code></pre>
+<p>And add new configuration block to newly created karma.conf.js</p>
+<pre><code class="language-js">karmaTypescriptConfig : {
+    include: [&quot;./src/**/*.ts&quot;, &quot;./tests/**/*.spec.ts&quot;],
+    tsconfig: &quot;./tsconfig.json&quot;,
+
+    reports: {
+        &quot;html&quot;: &quot;coverage&quot;,
+        &quot;lcovonly&quot;: {
+            directory: './coverage',
+            filename: '../lcov.dat'
+        }
+    },
+    coverageOptions: {
+        threshold: {
+            global: {
+                statements: 60,
+                branches: 60,
+                functions: 60,
+                lines: 60
+            },
+            file: {
+                statements: 60,
+                branches: 60,
+                functions: 60,
+                lines: 60,
+            }
+        }
+    },
+}
+</code></pre>
+<p>This will setup code-coverage file and threshold level. Both are important. First one helps you to deal with your coverage and the second one keeps your coverage on a certain level.</p>
+<p>Update package.json</p>
+<pre><code class="language-json">&quot;test&quot;: &quot;karma start&quot;
+</code></pre>
+<p>And try to run it. Don't forget to write some code inside src folder and tests inside the tests folder.</p>
+<p>Btw, if you plan to use continuous integration (like Travis, Jenkins or so on) it is better to change Chrome runner to HeadlessChrome with <a href="https://github.com/GoogleChrome/puppeteer">puppeteer</a>. For more information about HeadlessChrome and CI - check my demo <a href="https://github.com/Drag13/IsNumberStrict">repository</a> on GitHub.</p>
+<h2>Commit Style</h2>
+<p>Usually, all write commits in some &quot;random&quot; format. So, to keep commits good enough, <a href="https://github.com/commitizen/cz-cli">commitizen</a> was invented. This tool prompt a few questions and generate commit for you. Another good point that we can generate changelog file from commits written with help of commitizen.</p>
+<p>Install commitizen and conventional-changelog adapter</p>
+<pre><code class="language-cmd">npm i -D commitizen
+npm i -D cz-conventional-changelog
+</code></pre>
+<p>Update scripts</p>
+<pre><code class="language-json">&quot;commit&quot;:&quot;git-cz&quot;
+</code></pre>
+<p>Add new configuration section inside package.json for commitizen.</p>
+<pre><code class="language-json">&quot;config&quot;: {
+        &quot;commitizen&quot;: {
+            &quot;path&quot;: &quot;./node_modules/cz-conventional-changelog&quot;
+        }
+    }
+</code></pre>
+<h2>Documentation</h2>
+<p>If your project is bigger than a few functions it as a good idea to have some documentation. And it is even better when you don't need to write something manually. For that purposes <a href="https://www.npmjs.com/package/typedoc">typedoc</a> exists. It takes your .ts files, your jsdoc comments and creates nice and shiny documentation. If you are using javascript - you can try <a href="https://esdoc.org/">esdoc</a> instead.</p>
+<pre><code class="language-cmd">npm i -D typedoc
+</code></pre>
+<p>package.json</p>
+<pre><code class="language-json">&quot;doc&quot;: &quot;typedoc --out docs/src&quot;
+</code></pre>
+<p>Another good idea is to make your changelog file autogenerated too. As I mentioned before, commitizen supports conventional-changelog. So, we can take commits and convert them to the changelog file.</p>
+<p>Install <a href="https://www.npmjs.com/package/conventional-changelog-cli">conventional-changelog-cli</a></p>
+<pre><code class="language-cmd">npm i -D conventional-changelog-cli
+</code></pre>
+<p>And update package.json with the new command</p>
+<pre><code class="language-json">&quot;changelog&quot;: &quot;conventional-changelog -p angular -i CHANGELOG.md -s&quot;
+</code></pre>
+<p>Don't worry, angular means only style formatting and nothing more.</p>
+<h2>Build</h2>
+<p>The build is quite simple and it is just a matter to add build and clean commands to the package.json</p>
+<pre><code class="language-json">&quot;clean&quot;:&quot;rmdir dist /S /Q&quot;,
+&quot;build&quot;: &quot;tsc --p ./ --sourceMap false&quot;,
+</code></pre>
+<p>If you need bundling or minification - try <a href="https://www.npmjs.com/package/uglify-js">uglifyjs</a>.</p>
+<h2>Automation</h2>
+<p>Ok, the most part already done. We created a bunch of different scripts to keep our code clean and correct. But running them each time manually is a quite boring task and can lead to mistakes. So, we need to automate them. As you know, when you make a commit few git events appear - pre-commit, post-commit and so on. We can use them to run our own scripts before the code will be committed or pushed. But there is a problem - git hooks are not shareable. And that's why <a href="https://www.npmjs.com/package/husky">husky</a> appears. This package wraps the git events and runs your scripts from package.json. If the script fails, commit will be canceled and you will get the message what's going wrong.</p>
+<p>Install husky</p>
+<pre><code class="language-cmd">npm i -D husky
+</code></pre>
+<p>And describe some hooks inside package.json</p>
+<pre><code class="language-json">&quot;precommit&quot;:&quot;npm run prettier&quot;,
+&quot;prepush&quot;: &quot;call npm run lint &amp;&amp; call npm run test&quot;
+</code></pre>
+<p>Now, when you try to make a commit prettier will run and fix all formatting issues. When you try to make a push - code style and tests will be done automatically. You can extend this commands whatever you need like sending notifications, extra check etc.</p>
+<h2>Publish</h2>
+<p>Great, we are almost done. So, let's say we are ready to publish the package to npm. As you know, much work should be done before - tests, documentation update, version, and tags update. Easy to forget something, yeah? So, it is a good idea to automate this process too. For that purposes, we will use native npm hooks - preversion, version, and postversion. Add next lines to scripts section your package.json</p>
+<pre><code class="language-json">&quot;preversion&quot;: &quot;npm run test&quot;,
+&quot;version&quot;: &quot;call npm run clean &amp;&amp; call npm run build &amp;&amp; call npm run doc &amp;&amp; call npm run changelog &amp;&amp; git add . &amp;&amp; git commit -m 'changelogupdate' --no-verify&quot;,
+&quot;postversion&quot;: &quot;git add . &amp;&amp; git push &amp;&amp; git push --tags&quot;
+</code></pre>
+<p>When you will run npm version command, preversion script will run tests, version script will build your code and generate all documents. Then version will be increased and then all will be commited and pushed out. Now all you need is to run npm publish command and that's all. Just to commands and everything else will be done without any efforts from your side.</p>
+<p>At last, we need to specify what folders should be included in the project and where entry point can be located. Update package.json last time</p>
+<pre><code class="language-json">&quot;main&quot;: &quot;./dist/index.min.js&quot;,
+&quot;types&quot;: &quot;./dist/index.d.ts&quot;,
+&quot;files&quot;: [
+        &quot;dist/&quot;,
+        &quot;src/&quot;,
+        &quot;tests/&quot;
+    ]
+</code></pre>
+<p>That's all, your awesome project is ready to go! Thanks for reading. If you have questions, please check my demo project <a href="https://github.com/Drag13/IsNumberStrict">here</a>.</p>
+<h2>Useful links</h2>
+<ul>
+<li><a href="https://editorconfig.org/">.editorconfig</a></li>
+<li><a href="https://github.com/prettier/prettier">prettier</a></li>
+<li><a href="https://palantir.github.io/tslint/">tslint</a></li>
+<li><a href="https://eslint.org/">eslint</a></li>
+<li><a href="https://www.npmjs.com/package/typedoc">typedoc</a></li>
+<li><a href="https://esdoc.org/">esdoc</a></li>
+<li><a href="https://github.com/commitizen/cz-cli">commitizen</a></li>
+<li><a href="https://www.npmjs.com/package/conventional-changelog-cli">conventional-changelog-cli</a></li>
+<li><a href="https://www.npmjs.com/package/husky">husky</a></li>
+<li><a href="https://github.com/Drag13/IsNumberStrict">demo</a></li>
+</ul>
+</article></div></main><footer class="footer"><a href="https://github.com/Drag13/drag13.github.io/blob/development/LICENSE" target="_blank">2020 MIT by Drag13</a></footer></body></html>
