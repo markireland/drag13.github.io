@@ -56,6 +56,10 @@ body {
   color: gray;
 }
 
+.pp .header .link {
+  color: inherit;
+}
+
 .pp .link {
   margin-bottom: 3rem;
 }
