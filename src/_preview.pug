@@ -1,5 +1,7 @@
-mixin pp-header(date, title, href)
-  div.date=date
+mixin pp-header(tags, title, href)
+  div
+    each tag in tags
+      span.tag ##{tag} 
   h2.header
     a.link(href=href) #{title}
 
