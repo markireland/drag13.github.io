@@ -1,7 +1,5 @@
 # How to add custom types to the TypeScript project
 
-
-
 Working with TypeScript is very comfortable. It provides Intellisense, type-checking, and makes the developer's life much easier. But, sometimes, when I am using external libraries, I got a problem. They don't provide types or shipped types that are outdated. In this case, there is no other option but to define custom typings my own. Luckily, it's not that hard as you may expect.
 
 ## Before we start
