@@ -27,5 +27,5 @@ const title = titleName || generateTitleName(postName);
 const folder = join(cwd(), `./src/posts/${postName}`);
 
 mkdirSync(folder);
-writeFileSync(`${folder}/index.pug`, indexPugTemplate(title, folder));
+writeFileSync(`${folder}/index.pug`, indexPugTemplate(title, `https://drag13.io/posts/${postName}`));
 writeFileSync(`${folder}/content.md`, "");
