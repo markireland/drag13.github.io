@@ -1,9 +1,11 @@
-@import '~/styles/_markdown.less';
+@import "~/styles/_variables.less";
+@import "~/styles/_markdown.less";
 
 html,
 body {
   height: 100%;
   margin: 0;
+  box-sizing: border-box;
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -25,17 +27,28 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: aliceblue;
+  background-color: @header;
   margin-bottom: 2rem;
   justify-content: space-between;
-}
 
-.nav a {
-  color: #0366d6;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1.5;
-  padding-right: 2em;
+  .link {
+    color: @white;
+    font-weight: bolder;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .icon {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 0;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
 }
 
 .main {
@@ -59,6 +72,6 @@ body {
 .footer a {
   font-style: italic;
   text-decoration: none;
-  color: gray;
+  color: @license;
   font-size: 12px;
 }
