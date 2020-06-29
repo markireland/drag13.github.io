@@ -13,10 +13,9 @@ deploy:
   provider: pages
   target_branch: master
   github_token: $GITHUB_TOKEN
-  cleanup: true
+  skip_cleanup: true
   local_dir: dist
   keep_history: true
   allow_empty_commit: true
-  verbose: true
   on:
     branch: development
