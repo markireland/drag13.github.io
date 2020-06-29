@@ -3,9 +3,10 @@ include _mixins
 
 block variables
   - var title = 'Drag13 Dev Blog - JavaScript, Performance, Security'
-  - var description = 'Blog about web-programming, cloud computing, web-site performance and profiling'
+  - var description = 'Blog about web-programming, performance, security, and some-times - clouds'
   - var keywords = 'programming, web-programming, javascript, performance, security, web-performance, performance-tuning, .net, c#, f#, html, css, drag13'
   - var canonical = 'https://drag13.io/'
+  - var img = '~/img/main.png'
 
 block page-styles
   link(rel="stylesheet", href="~/styles/landing.less")
@@ -66,5 +67,5 @@ block content
       ['ci/cd', 'azure', 'kudu'],
       'How to build and deploy your front-end application from GitHub to Azure with Kudu',
       'Today we will learn how to build and deploy your front-end application directly from your GitHub account to the site hosted on Azure.',
-      'https://medium.com/@drag13dev/how-to-sync-your-github-repository-and-azure-40bdb564d788'
+      './posts/ci-cd-net/index.pug'
     )

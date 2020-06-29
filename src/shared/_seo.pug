@@ -1,5 +1,10 @@
-mixin seo(title, description, keywords, canonical)
+mixin seo(title, description, keywords, canonical, img)
   title #{title}
+  meta(property='og:title' content=title)
   meta(name='description', content=description)
+  meta(property='og:description' content=description)
   meta(name='keywords', content=keywords)
   link(rel='canonical', href=canonical)
+  meta(property='og:url' content=canonical)
+  if (img)
+    meta(property='og:image' content=img)
