@@ -1,5 +1,7 @@
 # Top-5 HTTP Security Headers in 2020
 
+![Top-5 HTTP Security Headers in 2020 KDPV](~/img/kdpv/security-headers.jpg)
+
 Nowadays, security is important as never before. I've prepared a very small article about the Top-5 security headers in 2020 that will help your site keep your users in safety. Have a nice reading!
 
 ## Content-Security-Policy
