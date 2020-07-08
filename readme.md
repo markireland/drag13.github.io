@@ -1,4 +1,4 @@
-This is source code for my personal blog - [https://drag13.io](https://drag13.io)
+This is source code for my blog - [https://drag13.io](https://drag13.io)
 
 Under the hood it uses
 
@@ -11,8 +11,8 @@ Check [https://drag.io](https://drag.io) for the content or my [twitter](https:/
 
 Latest articles:
 
-* [https://drag13.io/posts/custom-typings/index.html](How to add custom types to the TypeScript project)
-* [https://drag13.io/posts/security-headers/index.html](Top-5 HTTP Security Headers in 2020)
-
+* [How to use React without unsafe-inline and why](https://drag13.io/posts/react-inline-runtimer-chunk/index.html)
+* [How to add custom types to the TypeScript project](https://drag13.io/posts/custom-typings/index.html)
+* [Top-5 HTTP Security Headers in 2020](https://drag13.io/posts/security-headers/index.html)
 
 // drag13
