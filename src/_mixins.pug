@@ -10,6 +10,11 @@ mixin header(header)
     h2.header
       block
 
+mixin kpdv(img, title, href)
+  if(img)
+    a.kdpv-link(href=href title=title)
+        img.img(src=img, height="150" alt=title loading="lazy")
+
 mixin pp-body(text, href, link, linkTitle)
   p=text
   if href
@@ -19,12 +24,13 @@ mixin pp-body(text, href, link, linkTitle)
       else
         a(href=href title=linkTitle) Continue
 
-mixin pp(tags, header, text, href, link)
+mixin pp(tags, header, description, href, link, img)
   div.pp
     +taglist(tags)
     +header()
       a.text(href=href title=header) #{header}
-    +pp-body(text, href, link, header)
+    +kpdv(img, header ,href)
+    +pp-body(description, href, link, header)
 
 mixin news(tags, header)
   div.pp
