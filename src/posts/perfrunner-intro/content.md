@@ -40,7 +40,7 @@ Now, change something that might affect performance (I added jQuery to the top o
 
 It will look like this (clickable):
 
-<a href="~img/kdpv/original.png" target="_blank" ><img alt="Perfrunner report for original network, 25ms diff for largest-contentful-paint" src="./original_1.png"/></a>
+<a href="./original.png" target="_blank" ><img alt="Perfrunner report for original network, 25ms diff for largest-contentful-paint" src="./original.png"/></a>
 
 In this report you will see at least four different charts:
 
@@ -53,7 +53,7 @@ If you are using performance marks, you will also get marks chart as well.
 
 But what is perhaps the most important point, you can switch to the second tab and see how your changes affect the performance for another network/CPU/cache conditions:
 
-<a href="~img/kdpv/fast3g.png" target="_blank" ><img alt="Perfrunner report for original network, 25ms diff for largest-contentful-paint" src="./fast3g.png"/></a>
+<a href="./fast3g.png" target="_blank" ><img alt="Perfrunner report for original network, 25ms diff for largest-contentful-paint" src="./fast3g.png"/></a>
 
 As you can see, for the fast-3G network, the First-Contentful-Paint event appeared 75 ms later than for the regular network.
 
