@@ -1,0 +1,12 @@
+extends ../_layout
+
+block variables
+  - var title = 'Perfrunner - an automated testing tool to check your web site performance improvements against various conditions'
+  - var description = 'DESCRIPTION'
+  - var keywords = 'perfrunner-cli perfrunner performance fcp first-contentful-paint performance-metrics puppeteer front-end webtesting performance-testing'
+  - var canonical = 'https://drag13.io/posts/perfrunner-intro/index.html'
+
+block content
+  article.post
+    include:highlight:markdown-it(html) content.md
+    p.tag [02.08.2020] #perfrunner-cli #perfrunner #performance #fcp #first-contentful-paint #performance-metrics #puppeteer #front-end #webtesting #performance-testing

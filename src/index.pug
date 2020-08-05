@@ -12,7 +12,17 @@ block page-styles
   link(rel="stylesheet", href="~/styles/landing.less")
 
 block content
-    h1 Blog about JavaScript, performance and security. Let's talk a bit.
+    h1 Blog about JavaScript, performance and security
+
+    +pp(
+      ['performance-testing', 'perfrunner', 'first-contentful-paint', 'performance-metrics'],
+      'Perfrunner - an automated testing tool to check your web site performance improvements against various conditions',
+      `A few months ago I worked on the performance improvements for one React-based web application. I tried different tricks to improve initial application loading and I was really annoyed with the way of testing my changes. I had to launch the application several times to get average results. I had to repeat all launches against at least two types of networks (4g and my current). And I must do all mentioned once again for cache and cashless scenarios. So, for the one single change, I must run at least 12 tests. This was not fun.
+      I decided that I don\'t want to do this anymore and this is how the Perfrunner appeared.`,
+      './posts/perfrunner-intro/index.pug',
+      null,
+      '~/img/kdpv/perfrunner-intro.jpg'
+    )
 
     +pp(
       ['react','security', 'content-security-policy'],
