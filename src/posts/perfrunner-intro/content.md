@@ -4,7 +4,7 @@
 
 ## Quick intro
 
-A few months ago I worked on performance improvements for one React-based web application. I tried different tricks to improve initial application loading and I was really annoyed with the way of testing my changes. I had to launch the application several times to get average results. I had to repeat all launches against at least two types of networks (4g and my current). And I had repeat abovementioned tests once again for cache and cache-less scenarios. For the one single change, I had to run at least 12 tests. Needless to say, this was not fun.
+A few months ago I worked on performance improvements for one React-based web application. I tried different tricks to improve initial application loading and I was really annoyed with the way of testing my changes. I had to launch the application several times to get average results. I had to repeat all launches against at least two types of networks (4g and my current). And I had to repeat abovementioned tests once again for cache and cache-less scenarios. For the one single change, I had to run at least 12 tests. Needless to say, this was not fun.
 
 I decided that I don't want to do this anymore and this is how the [Perfrunner](https://github.com/Drag13/perfrunner) appeared.
 
