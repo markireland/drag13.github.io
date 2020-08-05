@@ -15,4 +15,4 @@ Latest articles:
 * [How to add custom types to the TypeScript project](https://drag13.io/posts/custom-typings/index.html)
 * [Top-5 HTTP Security Headers in 2020](https://drag13.io/posts/security-headers/index.html)
 
-// drag13
+// [drag13](https://twitter.com/drag137)
