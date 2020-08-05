@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "(parcel build ./src/index.pug --public-url \"https://drag13.io\" -d ./dist --no-source-maps) && (npm run copy:robots) && (npm run copy:verification) && (npm run copy:cname)",
+    "build": "(parcel build ./src/index.pug --public-url \"https://drag13.io\" -d ./dist --no-source-maps) && (npm run copy:robots) && (npm run copy:verification) && (npm run copy:cname) && (npm run copy:sitemap)",
     "start": "parcel -- watch serve ./src/index.pug -d ./dist",
     "copy:cname": "copyfiles CNAME ./dist",
     "copy:verification": "copyfiles googlef290f693ed9c35ff.html ./dist",
     "copy:robots": "copyfiles ./robots.txt ./dist ",
+    "copy:sitemap": "copyfiles ./sitemap.xml ./dist",
     "add": "node add-post.js"
   },
   "repository": {
