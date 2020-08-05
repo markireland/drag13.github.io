@@ -10,7 +10,7 @@ I decided that I don't want to do this anymore and this is how the [Perfrunner](
 
 Perfrunner is a simple CLI tool that launches your web site or web application, collects performance metrics, and reports them back to you. The cool part is that Perfrunner does not only a single run but a series of runs against different networks, cache and CPU conditions!
 
-In other words, Perfrunner loads your application several times (3 by default) against each condition, calculates average results, and displays you the difference between all previous runs. You don't have to run them manually anymore or calculate difference anymore, it is all automated!
+In other words, Perfrunner loads your application several times (3 by default) against each condition, calculates average results, and displays you the difference between all previous runs. You don't have to run them manually or calculate difference anymore, it is all automated!
 
 ## Demo
 
