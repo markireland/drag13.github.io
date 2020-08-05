@@ -4,7 +4,7 @@
 <p>A few months ago I worked on performance improvements for one React-based web application. I tried different tricks to improve initial application loading and I was really annoyed with the way of testing my changes. I had to launch the application several times to get average results. I had to repeat all launches against at least two types of networks (4g and my current). And I had to repeat abovementioned tests once again for cache and cache-less scenarios. For the one single change, I had to run at least 12 tests. Needless to say, this was not fun.</p>
 <p>I decided that I don't want to do this anymore and this is how the <a href="https://github.com/Drag13/perfrunner">Perfrunner</a> appeared.</p>
 <p>Perfrunner is a simple CLI tool that launches your web site or web application, collects performance metrics, and reports them back to you. The cool part is that Perfrunner does not only a single run but a series of runs against different networks, cache and CPU conditions!</p>
-<p>In other words, Perfrunner loads your application several times (3 by default) against each condition, calculates average results, and displays you the difference between all previous runs. You don't have to run them manually anymore or calculate difference anymore, it is all automated!</p>
+<p>In other words, Perfrunner loads your application several times (3 by default) against each condition, calculates average results, and displays you the difference between all previous runs. You don't have to run them manually or calculate difference anymore, it is all automated!</p>
 <h2>Demo</h2>
 <p>Let's start from a simple demo.</p>
 <p>First things first, you need to install Perfrunner and add launch script to the package.json file:</p>
