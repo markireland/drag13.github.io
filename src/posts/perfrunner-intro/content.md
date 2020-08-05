@@ -111,3 +111,5 @@ Perfrunner is based on [puppeteer](https://github.com/puppeteer/puppeteer), so i
 Summarizing, Perfrunner is a great tool to quickly check your performance improvements. It supports various network conditions, CPU throttling, and much more. If you have any questions, suggestions, or found an issue, feel free to visit [github](https://github.com/Drag13/perfrunner/issues) or contact me on [twitter](https://twitter.com/drag137).
 
 Wish you the fastest app!
+
+Thanks @veri-ivanova for the main image
