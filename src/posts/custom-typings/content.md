@@ -67,7 +67,7 @@ Another reason, why you see this error might be because you are using the wrong 
 
 ## Few words about typeRoots
 
-What about "typeRoots"? Isn't this option should fix all issues? The quick answer is - no. Typeroots option was created [only for the backward compatiblity](https://github.com/microsoft/TypeScript/issues/22217#issuecomment-370019383), so in certain circumstances, it might help but should be avoided if possible. However, VsCode uses this option to pick-up types for IntelliSense, so be aware :)
+What about "typeRoots"? Isn't this option should fix all issues? The quick answer is - no. Typeroots option was created [only for the backward compatibility](https://github.com/microsoft/TypeScript/issues/22217#issuecomment-370019383), so in certain circumstances, it might help but should be avoided if possible. However, VsCode uses this option to pick-up types for IntelliSense, so be aware :)
 
 ## Troubleshooting
 

@@ -20,9 +20,9 @@ and waits for the results
 
 Luckily, Alice knows about CSP header and already added it to the response : ```Content-Security-Policy: default-src 'self'```. Now, a browser already knows, that scripts (and images, and fonts, and styles) not from origin domains are forbidden to use and Bob's attack fails.
 
-Withing this header you can deny inline scripts and eval usage (goodbye inline XSS), specify a checksum for the scripts (goodbye substitution of the 3rd party scripts), allow specific domains for your images, fonts, and styles. It can restrict fetch requests, deny usage of your site inside an iframe (goodbye [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)) and much more. CSP header is very flexible and can support almost all of your needs.
+Within this header you can deny inline scripts and eval usage (goodbye inline XSS), specify a checksum for the scripts (goodbye substitution of the 3rd party scripts), allow specific domains for your images, fonts, and styles. It can restrict fetch requests, deny usage of your site inside an iframe (goodbye [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)) and much more. CSP header is very flexible and can support almost all of your needs.
 
-### Can I use?
+### Can I use Content-Security-Policy?
 
 CSP header [supported](https://caniuse.com/#feat=mdn-http_headers_csp_content-security-policy) by almost all browsers including IE (but with a special name - X-Content-Security-Policy). Some of the directives may not be supported across different browsers but this will not ruin the header.
 
@@ -47,7 +47,7 @@ Imagine, that Evil Bob found XSS on Alice's site and tries to put some malicious
 
 This header tells the browser,  strictly follow provided Mime/Type, and don't try to guess.
 
-### Can I use?
+### Can I use X-Content-Type-Options?
 
 [Supported](https://caniuse.com/#feat=mdn-http_headers_x-content-type-options) by all browsers except Safari.
 
@@ -66,7 +66,7 @@ But, fortunately, Alice already set Feature-Policy header to ```Feature-Policy: 
 Now, browsers know, that using a camera is not permitted for anyone, and Bob's attempt fails. Of course, you can turn off not only a camera but also autoplay (useful when you are showing some ads from 3rd party vendors), microphone and very much more. If you don't want to turn it off for all, you can allow to use it only for code from your domain.
 
 
-### Can I use?
+### Can I use Feature-Policy?
 
 Partially [supported](https://caniuse.com/#feat=feature-policy) by most of the browsers and not supported by the IE.
 
@@ -81,7 +81,7 @@ This is a very simple header for those who use HTTPS. It tells the browser to us
 
 Let's imaging that Alice is sitting in a public place and use public WiFi. Evil Bob is sitting not very far from her and trying to sniff all non-encrypted traffic. Alice decides to visit some online-shop and uses an old and good link like www://my-example-shop.com. Evil Bob sees her request (it's not encrypted) and starts recording Alice's activity hoping to get credit card information. But, after the first request, the shop returns STS header: ```Strict-Transport-Security: max-age=31536000```. And browsers automatically redirects Alice to the HTTPS version of the page. From now, Evil Bob sees only encrypted traffic and can't steal anything.
 
-## Can I use?
+## Can I use Strict-Transport-Security?
 
 [Supported](https://caniuse.com/#feat=stricttransportsecurity) by all browsers except Opera Mini. And Yes, IE also supports this header.
 
@@ -97,7 +97,7 @@ Short example:
 
 Alice has a forum about cats with lots of links to other resources. When a user clicks on the link, he is navigated to another web page, and this web page can gather some information about the source of the navigation. You value the privacy of your users and want to keep this information secret. You set Referer-Policy header and deny browser to send referer information for all except your self.
 
-### Can I use?
+### Can I use Referrer-Policy?
 
 Mostly [Supported](https://caniuse.com/#feat=referrer-policy) with all (IE - partially) browsers except Opera Mini
 
