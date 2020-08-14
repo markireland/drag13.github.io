@@ -15,6 +15,15 @@ block content
     h1 Blog about JavaScript, performance and security
 
     +pp(
+      ['typescript'],
+      'TypeScript tips and tricks for beginners - Part 1: Declarations',
+      'TypeScript is a very powerful language and it is becoming more and more popular. It is simple from the first sight but may contain some not very intuitive solutions. In this series of short articles I will show you useful tips and tricks that may help you in everyday coding and will keep your code type-safe (No any usage, promising!).',
+      './posts/typescript-tips-tricks-declarations/index.pug',
+      null,
+      '~img/kdpv/p.png'
+    )
+
+    +pp(
       ['performance-testing', 'perfrunner', 'first-contentful-paint', 'performance-metrics'],
       'Perfrunner - an automated testing tool to check your web site performance improvements against various conditions',
       `A few months ago I worked on the performance improvements for one React-based web application. I tried different tricks to improve initial application loading and I was really annoyed with the way of testing my changes. I had to launch the application several times to get average results. I had to repeat all launches against at least two types of networks (4g and my current). And I must do all mentioned once again for cache and cashless scenarios. So, for the one single change, I must run at least 12 tests. This was not fun.
