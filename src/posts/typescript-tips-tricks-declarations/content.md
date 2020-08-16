@@ -22,7 +22,7 @@ declare interface Window {
 }
 ```
 
-This approach named Global augmentation. The good news is that you are extending types, so you don't need to redeclare all other properties. The bad news is that you can't override existing properties without manual correcting corresponding .d.ts file. If you want to track this issue, check this [link](https://github.com/microsoft/TypeScript/issues/36146)
+This approach named "Global Augmentation". The good news is that you don't need to redeclare all other properties, you still can use all other. The bad news is that you can't override existing properties without manual correcting corresponding .d.ts file. If you want to track this issue, check this [link](https://github.com/microsoft/TypeScript/issues/36146)
 
 ## Adding static methods to the existed class in TypeScript
 
@@ -52,7 +52,7 @@ import "./array.ts";
 [].foo();
 ```
 
-An important note here is that you should avoid any import or export statements in this file or your file will be treated as module and trick will not work.
+**Important note:** you should avoid any import or export statements in this file or your file will be treated as module and trick will not work.
 
 ## Adding types for the third-party libraries in TypeScript
 
@@ -67,6 +67,14 @@ declare module "my-test-lib" {
 
 Now, when you will import something from `my-test-lib` you will have proper IntelliSense and type checking. Don't forget to send a PR to the [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) to let other people use your types.
 
-**Important note:** Don't forget to ensure that your *.d.ts files are visible for the TypeScript. Check `files/include` option in your tsconfig.json. If you have any issues, I have some more info about [how to add custom typings into the TypeScript project](https://drag13.io/posts/custom-typings/index.html)
+**Important note:** don't forget to ensure that your *.d.ts files are visible for the TypeScript. Check `files/include` option in your tsconfig.json. If you have any issues, I have some more info about [how to add custom typings into the TypeScript project](https://drag13.io/posts/custom-typings/index.html)
+
+## Summary
+
+In this article we found how to:
+
+* Add custom properties to the global or already existed types
+* Add static properties to already existed objects
+* Add custom types for the 3rd party code
 
 That's is the end of the first part of the TypeScript tips and tricks for beginners. See you soon!
