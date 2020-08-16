@@ -1,4 +1,6 @@
-# TypeScript tips and tricks for beginners - Part 1: Declarations
+# TypeScript Tips and Tricks for beginners - Declarations
+
+[![typescript tips and trics declarations](~/img/kdpv/ts-declarations.png)](./index.pug)
 
 TypeScript is a very powerful language and it is becoming more and more popular. It is simple from the first sight but may contain some not very intuitive solutions.
 In this series of short articles I will show you useful tips and tricks that may help you in everyday coding and will keep your code type-safe (No any usage, promising!).

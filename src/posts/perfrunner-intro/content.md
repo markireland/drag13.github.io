@@ -1,4 +1,4 @@
-# Perfrunner - an automated testing tool to check your web site performance improvements against various conditions.
+# Perfrunner - an automated tool to check your web site performance improvements against various conditions
 
 ![perfrunner intro image](~/img/kdpv/perfrunner-intro.jpg)
 
