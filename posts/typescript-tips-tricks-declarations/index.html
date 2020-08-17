@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'"><title>Typescript Tips&amp;Tricks: Declarations</title><meta property="og:title" content="Typescript Tips&amp;Tricks: Declarations"><meta name="description" content="How to extends global objects, add static methods and custom typings for the 3rd party code in TypeScript"><meta property="og:description" content="How to extends global objects, add static methods and custom typings for the 3rd party code in TypeScript"><meta name="keywords" content="typescript, typings, custom types, global object, static method"><link rel="canonical" href="https://drag13.io/posts/typescript-tips-tricks-declarations/index.html"><meta property="og:url" content="https://drag13.io/posts/typescript-tips-tricks-declarations/index.html"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="https://twitter.com/drag137"><meta name="twitter:url" content="https://drag13.io/posts/typescript-tips-tricks-declarations/index.html"><meta name="twitter:title" content="Typescript Tips&amp;Tricks: Declarations"><meta name="twitter:description" content="How to extends global objects, add static methods and custom typings for the 3rd party code in TypeScript"><meta name="og:site_name" content="Drag13 Dev Blog"><meta property="og:image" content="https://drag13.io/ts-declarations.ff5bcc55.png"><meta name="twitter:image" content="https://drag13.io/ts-declarations.ff5bcc55.png"><meta name="application-name" content="Drag13 programmer's blog"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="author" content="Drag13"><meta name="robots" content="index follow"><meta name="application-name" content="Drag13 Dev Blog"><link rel="stylesheet" href="https://drag13.io/common.67e40877.css"><link rel="stylesheet" href="https://drag13.io/post.45f546f7.css"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://drag13.io/apple-touch-icon-144x144.f6d9dce4.png"><link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://drag13.io/apple-touch-icon-152x152.5c0b4e01.png"><link rel="icon" type="image/png" href="https://drag13.io/favicon-32x32.2ff4c37a.png" sizes="32x32"><link rel="icon" type="image/png" href="https://drag13.io/favicon-16x16.60caff07.png" sizes="16x16"><link rel="manifest" href="https://drag13.io/manifest.webmanifest"><body><nav class="nav"><a class="link" href="/">Home</a><div><a class="icon" href="https://github.com/Drag13" target="_blank"><svg height="32" viewBox="0 0 16 16" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div></nav><main class="main"><div class="content markdown-body"><article class="post"><h1>TypeScript Tips and Tricks for beginners - Declarations</h1>
+<p><a href="https://drag13.io/posts/typescript-tips-tricks-declarations/index.html"><img src="https://drag13.io/ts-declarations.ff5bcc55.png" alt="typescript tips and trics declarations"></a></p>
+<p>TypeScript is a very powerful language and it is becoming more and more popular. I would say that TypeScript is that kind of language that is easy to learn but difficult to master. In this article, I will show you some useful tips and tricks about TypeScript's declarations that may help you in everyday coding and will keep your code type-safe.</p>
+<h2>Global object augmentation in TypeScript</h2>
+<p>The declaration is one of the most important parts of the TypeScript and of course, you already familiar with it. Despite this, sometimes declarations might be tricky.</p>
+<p>Imagine that you need to extend global object (like Window) with custom properties. If you will try to do it directly, TypeScript will show an error like this: <code>Property 'customProperty' does not exist on type 'Window &amp; typeof globalThis'.ts(2339)</code>. This happens because <code>customProperty</code> not exists in the corresponding type and TypeScript disallows you to operate with not existed properties.</p>
+<p>The popular way to solve this (and incorrect), is to cast the desired object to <code>any</code> and then, assign or use new properties. However, in this case, we will lose IntelliSense and type safety. A much better way to extend globally declared class is to declare a new, correct interface with the same name:</p>
+<pre><code class="language-typescript"><span class="token comment">// window.d.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">interface</span> <span class="token class-name">Window</span> <span class="token punctuation">{</span>
+  config<span class="token operator">:</span> <span class="token punctuation">{</span>
+    env<span class="token operator">:</span> <span class="token string">"dev"</span> <span class="token operator">|</span> <span class="token string">"prod"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This approach named "Global Augmentation". The good news is that you don't need to redeclare all other properties, you still can use all other. The bad news is that you can't override existing properties without manual correcting corresponding .d.ts file. If you want to track this issue, check this <a href="https://github.com/microsoft/TypeScript/issues/36146">link</a></p>
+<p><strong>Trick:</strong> You can have multiple global augmentations in a single file.</p>
+<p>If you want not only update the type but also add new behavior to the global object, the technique will be slightly different and you need to follow the next steps:</p>
+<ul>
+<li>Create new <code>.ts</code> (not <code>.d.ts</code>) file</li>
+<li>Declare interface with the same name</li>
+<li>Add actual code</li>
+<li>Import this file in the entry point of your application</li>
+</ul>
+<p>Simple example adding a new method to the Array:</p>
+<pre><code class="language-typescript"><span class="token comment">// array.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">interface</span> <span class="token class-name"><span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+  <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token builtin">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">foo</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token string">"bar"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code class="language-typescript"><span class="token comment">// index.ts</span>
+<span class="token keyword">import</span> <span class="token string">"./array.ts"</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>Important note:</strong> Extend prototype, not the class itself.</p>
+<h2>Adding static methods to the existed class in TypeScript</h2>
+<p>Let's move further. What if you want to add a new <strong>static</strong> method to the existed class, like <code>Array</code>? In this case, you need to do the same as in the previous chapter but extend <strong>constructor</strong> of the class you want to extend:</p>
+<ul>
+<li>Declare a new interface for the <strong>constructor</strong> you want to extend,</li>
+<li>Add new property/method to the class constructor (not to the prototype!)</li>
+<li>Import the file in the entry point of your application</li>
+</ul>
+<p>Code example:</p>
+<pre><code class="language-typescript"><span class="token comment">// array.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">interface</span> <span class="token class-name">ArrayConstructor</span> <span class="token punctuation">{</span>
+    <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function-variable function">foo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello from static method</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code class="language-typescript"><span class="token comment">// index.ts</span>
+<span class="token keyword">import</span> <span class="token string">"./array.ts"</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>Important note:</strong> You should avoid any import or export statements in this file or your file will be treated as module and trick will not work.</p>
+<h2>Adding types for the third-party libraries in TypeScript</h2>
+<p>As you can see, extending global objects in the TypeScript is quite simple. But how to add custom types for the 3rd party library? In this case, you should use a module declaration statement:</p>
+<pre><code class="language-typescript"><span class="token comment">// mytestlib.d.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">module</span> <span class="token string">"my-test-lib"</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">main_answer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now, when you will import something from <code>my-test-lib</code> you will have proper IntelliSense and type checking. Don't forget to send a PR to the <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">DefinitelyTyped</a> to let other people use your types.</p>
+<p><strong>Important note:</strong> don't forget to ensure that your *.d.ts files are visible for the TypeScript. Check <code>files/include</code> option in your tsconfig.json. If you have any issues, I have some more info about <a href="https://drag13.io/posts/custom-typings/index.html">how to add custom typings into the TypeScript project</a></p>
+<h2>Summary</h2>
+<p>In this article we discussed how to:</p>
+<ul>
+<li>Add custom properties to the global or already existed types</li>
+<li>Add static properties to already existed class</li>
+<li>Add custom types for the 3rd party code</li>
+</ul>
+<p>That's is the end of the first part of the TypeScript tips and tricks for beginners. See you soon!</p>
+<p class="tag">[16.08.2020] #typescript #declarations</p></article></div></main><footer class="footer"><a href="https://github.com/Drag13/drag13.github.io/blob/development/LICENSE" target="_blank">2020 MIT by Drag13</a></footer></body></html>
